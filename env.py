@@ -6,9 +6,9 @@ from config import NCOL,NROW,NFOOD,EPISODE_MAXLEN
 from util import dirs,addModVec
 
 class Reward:
-	IDLE = 0
+	IDLE = -1/100
 	COLLIDE = -1
-	FOOD = 1/3
+	FOOD = 1
 
 def stateTransform(state,flipy,flipx,deltay,deltax):
     def fy(y): return (NROW-1-(y+deltay+NROW)%NROW if flipy else y+NROW+deltay)%NROW
@@ -24,6 +24,8 @@ def actTransform(act,flipy,flipx):
 class Env:
 	def __init__(self, flipTransform):
 		self.flipTransform=flipTransform
+		self.state=None
+		self.score=0
 	def useCell(self,cell):
 		self.empty_cells.remove(cell)
 		return cell
@@ -34,6 +36,8 @@ class Env:
 		return random.sample(self.empty_cells,1)[0]
 		
 	def reset(self, obs=None):
+		self.state=None
+		self.score=0
 		self.empty_cells = [(y,x) for y in range(NROW) for x in range(NCOL)]
 		if not obs:
 			obs={
@@ -60,10 +64,10 @@ class Env:
 		s={'snake':self.snake,'foods':self.foods,'time':self.time,'done':self.done}
 		cy,cx=NROW//2,NCOL//2
 		hy,hx=self.snake[-1]
-		fy = np.random.randint(0,2),np.random.randint(0,2) if self.flipTransform else 0
-		fx = np.random.randint(0,2),np.random.randint(0,2) if self.flipTransform else 0
-		s=stateTransform(s,fy,fx,cy-hy,cx-hx)
-		return s
+		fy = np.random.randint(0,2) if self.flipTransform else 0
+		fx = np.random.randint(0,2) if self.flipTransform else 0
+		self.state=stateTransform(s,fy,fx,cy-hy,cx-hx)
+		return self.state
 
 	def getCellType(self,pos):
 		if pos in self.snake: return "SNAKE"
@@ -90,13 +94,16 @@ class Env:
 			
 			while len(self.foods)<NFOOD:
 				self.foods.append(self.useCell(self.getRandomEmptyCell()))
+			self.score+=Reward.FOOD
 			return (self.makeState(),Reward.FOOD)
 		elif npos_type=="SNAKE":
 			self.done=True
+			self.score+=Reward.COLLIDE
 			return (self.makeState(),Reward.COLLIDE)
 		else: #EMPTY CELL
 			if self.time==EPISODE_MAXLEN:
 				self.done=True
 				return (self.makeState(),Reward.IDLE)
 			self.snake.append(self.useCell(npos))
+			self.score+=Reward.IDLE
 			return (self.makeState(),Reward.IDLE)
