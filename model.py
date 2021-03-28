@@ -46,7 +46,7 @@ class SnakeNet(nn.Module):
 	def __init__(self):
 		super(SnakeNet,self).__init__()
 		self.chn_in=4
-		self.chn_mid=32
+		self.chn_mid=128
 		self.chn_out=8
 
 		self.feature=nn.Sequential(
@@ -61,7 +61,7 @@ class SnakeNet(nn.Module):
 		)
 		self.pol = nn.Sequential(
 			Full(self.chn_out*NROW*NCOL,256),
-			Full(256,4,afunc=nn.Softmax(dim=1)),
+			Full(256,4,None),
 		)
 		self.val = nn.Sequential(
 			Full(self.chn_out*NROW*NCOL,256),
