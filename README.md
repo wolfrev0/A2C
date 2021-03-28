@@ -1,8 +1,10 @@
 # A2C
 Advantage Actor Critic  
 
-## Improvements  
-1. a  
+* Multi Actor
+* PPO (WIP)
+* Entropy Bonus (WIP)
+* TD(n) (WIP)
 
 ## Trained Agent  
 ![Snake GIF](https://raw.githubusercontent.com/0xC0DEF/A2C/master/snake.gif)  
