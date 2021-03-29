@@ -14,4 +14,4 @@ Advantage Actor Critic
 2. cd A2C  
 3. open Snake.ipynb and run all cell (start training)  
 4. open and run Test.ipynb to test learning agent (You can use Test.ipynb during training)  
-![Training Visualization]()  
+![Training Visualization](https://raw.githubusercontent.com/0xC0DEF/A2C/master/visualization.png)  
