@@ -1,8 +1,10 @@
 # A2C
-Advantage Actor Critic  
+(Syncronous Multiagent) Advantage Actor Critic  
+* Restricted to single core multi-actor for simple code
 
-* PPO (WIP)
-* TD(n) (WIP)
+# WIP
+* PPO
+* TD(n)
 
 ## Trained Agent  
 ![Snake GIF](https://raw.githubusercontent.com/0xC0DEF/A2C/master/snake.gif)  
