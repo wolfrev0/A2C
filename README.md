@@ -1,6 +1,6 @@
 # A2C
-(Syncronous Multiagent) Advantage Actor Critic  
-* Restricted to single core multi-actor for simple code
+(Synchronous Multi-Actor) Advantage Actor Critic  
+* Restricted to single core multi-actor for simple compact code
 
 # WIP
 * PPO
