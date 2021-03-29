@@ -6,9 +6,9 @@ from config import NCOL,NROW,NFOOD,EPISODE_MAXLEN
 from util import dirs,addModVec
 
 class Reward:
-	IDLE = -1/100
+	IDLE = -5e-3
 	COLLIDE = -1
-	FOOD = 1
+	FOOD = 1/3
 
 def stateTransform(state,flipy,flipx,deltay,deltax):
     def fy(y): return (NROW-1-(y+deltay+NROW)%NROW if flipy else y+NROW+deltay)%NROW

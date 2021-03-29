@@ -46,13 +46,11 @@ class SnakeNet(nn.Module):
 	def __init__(self):
 		super(SnakeNet,self).__init__()
 		self.chn_in=4
-		self.chn_mid=128
-		self.chn_out=8
+		self.chn_mid=64
+		self.chn_out=16
 
 		self.feature=nn.Sequential(
 			Conv(self.chn_in,self.chn_mid),
-			Resi(self.chn_mid),
-			Resi(self.chn_mid),
 			Resi(self.chn_mid),
 			Resi(self.chn_mid),
 			Resi(self.chn_mid),
@@ -60,12 +58,12 @@ class SnakeNet(nn.Module):
 			nn.Flatten(),
 		)
 		self.pol = nn.Sequential(
-			Full(self.chn_out*NROW*NCOL,256),
-			Full(256,4,None),
+			Full(self.chn_out*NROW*NCOL,512),
+			Full(512,4,None),
 		)
 		self.val = nn.Sequential(
-			Full(self.chn_out*NROW*NCOL,256),
-			Full(256,1,None),
+			Full(self.chn_out*NROW*NCOL,512),
+			Full(512,1,None),
 		)
 		for x in self.modules():
 			if isinstance(x,nn.Conv2d) or isinstance(x,nn.Linear):
