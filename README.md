@@ -7,7 +7,7 @@ Advantage Actor Critic
 ## Trained Agent  
 ![Snake GIF](https://raw.githubusercontent.com/0xC0DEF/A2C/master/snake.gif)  
 
-## Usage  
+## Getting Started  
 1. git clone https://github.com/0xC0DEF/A2C  
 2. cd A2C  
 3. open Snake.ipynb and run all cell (start training)  
