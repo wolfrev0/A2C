@@ -1,9 +1,7 @@
 # A2C
 Advantage Actor Critic  
 
-* Multi Actor
 * PPO (WIP)
-* Entropy Bonus (WIP)
 * TD(n) (WIP)
 
 ## Trained Agent  
