@@ -8,21 +8,24 @@ class Conv(nn.Module):
 	def __init__(self, chn_in, chn_out, ker_sz=3):
 		super().__init__()
 		self.c=nn.Conv2d(chn_in,chn_out,ker_sz,padding=ker_sz//2,padding_mode="circular",bias=False)
-		self.b=nn.BatchNorm2d(chn_out)
+		#self.b=nn.BatchNorm2d(chn_out)
 		self.a=nn.ReLU()
 
 	def forward(self, x):
-		return self.a(self.b(self.c(x)))
+		x=self.c(x)
+		#x=self.b(x)
+		x=self.a(x)
+		return x
 
 class Resi(nn.Module):
 	def __init__(self, chn, ker_sz=3):
 		super().__init__()
 		self.pre=nn.Sequential(
 			nn.Conv2d(chn,chn,ker_sz,padding=ker_sz//2,padding_mode="circular",bias=False),
-			nn.BatchNorm2d(chn),
+			#nn.BatchNorm2d(chn),
 			nn.ReLU(),
 			nn.Conv2d(chn,chn,ker_sz,padding=ker_sz//2,padding_mode="circular",bias=False),
-			nn.BatchNorm2d(chn),
+			#nn.BatchNorm2d(chn),
 		)
 		self.post=nn.ReLU()
 
@@ -50,6 +53,7 @@ class SnakeNet(nn.Module):
 		self.chn_out=16
 
 		self.feature=nn.Sequential(
+			#nn.BatchNorm2d(self.chn_in),
 			Conv(self.chn_in,self.chn_mid),
 			Resi(self.chn_mid),
 			Resi(self.chn_mid),

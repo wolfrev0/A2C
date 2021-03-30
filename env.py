@@ -6,7 +6,7 @@ from config import NCOL,NROW,NFOOD,EPISODE_MAXLEN
 from util import dirs,addModVec
 
 class Reward:
-	IDLE = -5e-3
+	IDLE = 0
 	COLLIDE = -1
 	FOOD = 1/3
 
