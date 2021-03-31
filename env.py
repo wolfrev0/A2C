@@ -8,7 +8,7 @@ from util import dirs,addModVec
 class Reward:
 	IDLE = 0
 	COLLIDE = -1
-	FOOD = 1/3
+	FOOD = 1/4
 
 def stateTransform(state,flipy,flipx,deltay,deltax):
     def fy(y): return (NROW-1-(y+deltay+NROW)%NROW if flipy else y+NROW+deltay)%NROW
@@ -92,7 +92,7 @@ class Env:
 			#restore tail
 			self.snake.insert(0,self.useCell(tail))
 			
-			while len(self.foods)<NFOOD:
+			while len(self.empty_cells) and len(self.foods)<NFOOD:
 				self.foods.append(self.useCell(self.getRandomEmptyCell()))
 			self.score+=Reward.FOOD
 			return (self.makeState(),Reward.FOOD)
